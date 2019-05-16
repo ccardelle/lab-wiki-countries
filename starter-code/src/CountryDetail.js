@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-// import countries from "./countries.json";
-
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class CountryDetail extends Component {
   state = {};
@@ -34,14 +32,18 @@ class CountryDetail extends Component {
     let country = this.props.countries.find(
       item => item.flag === this.props.match.params.id
     );
+    // let bordersPop = () => {
+    //   for (let i = 0; i < country.borders.length; i++) {
+    //     return <li>{country.borders[i]}</li>;
+    //   }
 
-    let bordersPop = () => {
-      country.borders.forEach(item => {
-        console.log(item);
-        return <li>{item}</li>;
-      });
-      //   return <li>{this.item}</li>;
-    };
+    let bordersPop = country.borders.map(item => {
+      return (
+        <li>
+          <Link to={`/country`}> {item} </Link>
+        </li>
+      );
+    });
 
     // console.log("=======================", country);
 
@@ -76,7 +78,7 @@ class CountryDetail extends Component {
               <td>Borders</td>
               <td>
                 <ul>
-                  {bordersPop()}
+                  {bordersPop}
 
                   {/* <li>
                     <a href="/AND">Andorra</a>
