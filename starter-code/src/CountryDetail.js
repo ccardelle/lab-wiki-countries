@@ -33,8 +33,16 @@ class CountryDetail extends Component {
       item => item.flag === this.props.match.params.id
     );
     // let bordersPop = () => {
+    // let borders = []
     //   for (let i = 0; i < country.borders.length; i++) {
     //     return <li>{country.borders[i]}</li>;
+    //   }
+    //}
+
+    // let bordersPop = () => {
+    //   return counry.border.map(country=>}{
+    //     return <li>{country.borders[i]}</li>;
+    //})
     //   }
 
     let bordersPop = country.borders.map(item => {
