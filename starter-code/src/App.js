@@ -2,85 +2,70 @@
 import React, { Component } from "react";
 import "./App.css";
 import CountryDetail from "./CountryDetail";
+import { Switch, Route, NavLink, Redirect } from "react-router-dom";
+import CountryList from "./countries.json";
 
 class App extends Component {
+  state = {
+    countries: CountryList
+  };
+
+  displayCountryList = () => {
+    let CountryListCopy = this.state.countries.map((country, i) => {
+      return (
+        <NavLink
+          key={i}
+          className="list-group-item list-group-item-action"
+          activeClassName="selected"
+          to={`/country/${country.name.common}`}
+        >
+          {country.flag}
+          {country.name.common}
+        </NavLink>
+      );
+    });
+    return CountryListCopy;
+  };
   render() {
     return (
       <div id="root">
         <div>
-          <nav class="navbar navbar-dark bg-primary mb-3">
-            <div class="container">
-              <a class="navbar-brand" href="/">
+          <nav className="navbar navbar-dark bg-primary mb-3">
+            <div className="container">
+              <a className="navbar-brand" href="/">
                 WikiCountries
               </a>
             </div>
           </nav>
-          <div class="container-fluid">
-            <div class="row justify-content-center">
+          <div className="container-fluid">
+            <div className="row justify-content-center">
               <div
-                class="col-5"
+                className="col-5"
                 style={{ maxHeight: "90vh", overflow: "scroll" }}
               >
-                <div class="list-group">
-                  <a class="list-group-item list-group-item-action" href="/ABW">
-                    🇦🇼 Aruba
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/AFG">
-                    🇦🇫 Afghanistan
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/AGO">
-                    🇦🇴 Angola
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/AIA">
-                    🇦🇮 Anguilla
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ALA">
-                    🇦🇽 Åland Islands
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ALB">
-                    🇦🇱 Albania
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/AND">
-                    🇦🇩 Andorra
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ARE">
-                    🇦🇪 United Arab Emirates
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ARG">
-                    🇦🇷 Argentina
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ARM">
-                    🇦🇲 Armenia
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ASM">
-                    🇦🇸 American Samoa
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ATA">
-                    🇦🇶 Antarctica
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/FLK">
-                    🇫🇰 Falkland Islands
-                  </a>
-                  <a
-                    class="list-group-item list-group-item-action active"
-                    href="/FRA"
-                  >
-                    🇫🇷 France
-                  </a>
-                  <a class="list-group-item list-group-item-action" href="/ZWE">
-                    🇿🇼 Zimbabwe
-                  </a>
-                </div>
+                <div className="list-group">{this.displayCountryList()}</div>
               </div>
+
               <div className="countryDetail">
-                <CountryDetail />
+                <Switch>
+                  <Route
+                    exact
+                    path="/country/:id"
+                    render={() => (
+                      <CountryDetail countries={this.state.countries} />
+                    )}
+                  />
+                  {/* <Route
+                    exact
+                    path="/country/:id"
+                    component={CountryDetail}
+                    countries={this.state.countries}
+                  /> */}
+                </Switch>{" "}
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="countryDetail">
-          <CountryDetail />
-        </div> */}
       </div>
     );
   }
