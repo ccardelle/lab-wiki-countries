@@ -17,7 +17,7 @@ class App extends Component {
           key={i}
           className="list-group-item list-group-item-action"
           activeClassName="selected"
-          to={`/country/${country.name.common}`}
+          to={`/country/${country.flag}`}
         >
           {country.flag}
           {country.name.common}
@@ -51,8 +51,11 @@ class App extends Component {
                   <Route
                     exact
                     path="/country/:id"
-                    render={() => (
-                      <CountryDetail countries={this.state.countries} />
+                    render={props => (
+                      <CountryDetail
+                        countries={this.state.countries}
+                        {...props}
+                      />
                     )}
                   />
                   {/* <Route

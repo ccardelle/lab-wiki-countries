@@ -1,30 +1,50 @@
 import React, { Component } from "react";
+// import countries from "./countries.json";
+
 // import { Link } from "react-router-dom";
 
 class CountryDetail extends Component {
-  state = {
-    countries: this.props.countries
-  };
+  state = {};
 
   //   findCountry = country => {
   //     let flag = this.props.match ? this.props.match.params.id : "";
   //     return country.flag === id;
   //   };
 
-  // flag = this.props.match ? this.props.match.params.id : "";
-  //   result = this.state.countries.find(item =>
-  //     item.flag === this.props.match ? this.props.match.params.id : ""
-  //   );
+  //   flag = this.props.match ? this.props.match.params.id : "";
+  //     country = countries.find(item =>
+  //       item.flag === this.props.match ? this.props.match.params.id : ""
+  //     );
+  //     console.log(country)
+
+  //   borders = () => this.country.forEach(item => {});
+
+  //   borders = () => {
+  //     this.country.borders.forEach(item => {
+  //       console.log(item);
+  //       return <li>{item}</li>;
+  //     });
+  //   };
 
   render() {
-    // console.log(this.props.match);
+    // console.log(this.state.id);
     // let id = this.props.match ? this.props.match.params.id : "";
     // console.log("id is ", id);
 
-    let result = this.state.countries.find(
-      item => item.name.common === this.props.match.params.id
+    let country = this.props.countries.find(
+      item => item.flag === this.props.match.params.id
     );
-    console.log(result);
+
+    let bordersPop = () => {
+      country.borders.forEach(item => {
+        console.log(item);
+        return <li>{item}</li>;
+      });
+      //   return <li>{this.item}</li>;
+    };
+
+    // console.log("=======================", country);
+
     // console.log(this.props.countries.find(this.findCountry));
 
     // console.log(this.props.match.params.id);
@@ -34,18 +54,21 @@ class CountryDetail extends Component {
     return (
       <React.Fragment>
         {/* <div className="col-4"> */}
-        <h1>France</h1>
+        <h1>
+          {" "}
+          {country.flag} {country.name.common}
+        </h1>
         <table className="table">
           <thead />
           <tbody>
             <tr>
               <td style={{ width: "60%" }}>Capital</td>
-              <td>Paris</td>
+              <td>{country.capital[0]}</td>
             </tr>
             <tr>
               <td>Area</td>
               <td>
-                551695 km
+                {country.area}
                 <sup>2</sup>
               </td>
             </tr>
@@ -53,7 +76,9 @@ class CountryDetail extends Component {
               <td>Borders</td>
               <td>
                 <ul>
-                  <li>
+                  {bordersPop()}
+
+                  {/* <li>
                     <a href="/AND">Andorra</a>
                   </li>
                   <li>
@@ -76,7 +101,7 @@ class CountryDetail extends Component {
                   </li>
                   <li>
                     <a href="/CHE">Switzerland</a>
-                  </li>
+                  </li> */}
                 </ul>
               </td>
             </tr>
